@@ -8,6 +8,9 @@ import json
 def limpar_tela():
     os.system("cls" if os.name == "nt" else "clear")
 
+def retornar():
+    input("\nPressione ENTER para continuar...")
+
 def validar_matricula(matricula):
     """
     Verifica se a matrícula é válida (ex.: número inteiro positivo).

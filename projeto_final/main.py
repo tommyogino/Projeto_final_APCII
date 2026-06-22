@@ -16,6 +16,7 @@ ARQUIVO_DADOS = "dados.json"
 def exibir_menu():
     display_ansi_art()
     print("\n============//============\n")
+
     """Imprime as opções do menu principal."""
     print("1. Cadastrar aluno")
     print("2. Listar alunos")
@@ -45,14 +46,14 @@ def main():
             lista_alunos.append(novo_aluno)
             matriz_notas.append(notas.criar_matriz_notas(1)[0])
             print("\nAluno cadastrado com sucesso!")
-            input("\nPressione ENTER para continuar...")
+            utils.retornar()
 
             # TODO: validar com utils.validar_matricula, adicionar uma nova linha em matriz_notas com notas.criar_matriz_notas(1) ou similar.
 
         elif opcao == "2":
             #chamar aluno.listar_alunos(lista_alunos)
             aluno.listar_alunos(lista_alunos)
-            input("\nPressione ENTER para continuar...")
+            utils.retornar()
 
         elif opcao == "3":
             # TODO: perguntar se busca por nome ou matrícula e chamar
@@ -76,14 +77,19 @@ def main():
             indice_disciplina = int(input("Escolha a disciplina: "))
             nota = float(input("Nota: "))
 
-            notas.cadastrar_nota(matriz_notas, matricula, indice_disciplina, nota)
-            # TODO: pedir índice/matrícula do aluno, disciplina e nota,
-            # validar com utils.validar_nota e chamar notas.cadastrar_nota.
-            pass
+            sucesso = notas.cadastrar_nota(matriz_notas, matricula, indice_disciplina, nota)
+            if sucesso:
+                print("\nNota cadastrada com sucesso!")
 
+            else:
+                print("\nNota invalida! Digite um valor entre 0 e 10. ")
+
+            utils.retornar()
+            
         elif opcao == "6":
-            # TODO: pedir o aluno e chamar notas.calcular_media.
-            pass
+            indice = int(input("Digite a matricula do aluno: "))
+            print(f"Media das notas do aluno: {notas.calcular_media(matriz_notas,indice)}")
+            input("\nPressione ENTER para continuar...")
 
         elif opcao == "7":
             # TODO: montar um relatório combinando listagem de alunos,

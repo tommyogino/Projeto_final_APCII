@@ -48,18 +48,15 @@ def cadastrar_nota(matriz, indice_aluno, indice_disciplina, valor):
         indice_disciplina (int): coluna (índice em DISCIPLINAS).
         valor (float): nova nota.
 
-    Retorno:
-        None
-
     TODO: implementar (lembrar de validar a nota antes — ver utils.validar_nota).
     """
     if utils.validar_nota(valor) == True:
         matriz[indice_aluno][indice_disciplina] = valor
-        print("Nota cadastrada com sucesso!")
-        input("\nPressione ENTER para continuar...")
+        return True
+    
     else:
-        print("Nota invalida!")
-        input("\nPressione ENTER para continuar...")
+        return False
+
     
 
 
@@ -74,9 +71,13 @@ def calcular_media(matriz, indice_aluno):
     Retorno:
         float: média das notas do aluno.
 
-    TODO: implementar.
     """
-    pass
+    linha = matriz[indice_aluno]
+    soma = 0
+    for nota in linha:
+        soma += nota
+    
+    return soma / len(linha)
 
 
 def calcular_media_geral(matriz):
@@ -90,6 +91,9 @@ def calcular_media_geral(matriz):
     Retorno:
         float: média geral de todas as notas.
 
-    TODO: implementar.
     """
-    pass
+    soma = 0
+    for i in range(len(matriz)):
+        soma += calcular_media(matriz, i)
+    
+    return soma / len(matriz)
