@@ -1,0 +1,48 @@
+"""
+Módulo responsável pelos algoritmos de ordenação.
+
+Importante: o objetivo da disciplina é implementar o algoritmo de ordenação
+manualmente (ex.: bubble sort, insertion sort ou selection sort) em vez de
+usar sorted()/list.sort() prontos do Python.
+"""
+
+
+def ordenar_por_nome(alunos):
+    """
+    Retorna uma nova lista de alunos ordenada por nome (ordem alfabética
+    crescente).
+
+    Parâmetros:
+        alunos (list[dict]): lista de alunos.
+
+    Retorno:
+        list[dict]: nova lista ordenada por nome. Não deve modificar a
+        lista original (faça uma cópia, ex.: alunos.copy(), antes de ordenar).
+
+    TODO: implementar um algoritmo de ordenação manualmente (ex.: bubble sort
+    comparando alunos[i]["nome"]).
+    """
+    pass
+
+
+def ordenar_por_media(alunos, matriz_notas):
+    """
+    Retorna uma nova lista de alunos ordenada pela média de notas, da maior
+    para a menor.
+
+    Atenção: como a matriz de notas usa o índice do aluno na lista original
+    como linha (matriz_notas[i] pertence a alunos[i]), ao reordenar é preciso
+    manter essa associação aluno <-> notas (sugestão: ordenar uma lista de
+    pares (aluno, média) em vez de só os alunos).
+
+    Parâmetros:
+        alunos (list[dict]): lista de alunos.
+        matriz_notas (list[list[float]]): matriz de notas correspondente.
+
+    Retorno:
+        list[dict]: nova lista de alunos ordenada por média decrescente.
+
+    TODO: implementar (usar notas.calcular_media para cada aluno e depois
+    ordenar manualmente pelo valor da média).
+    """
+    pass
