@@ -2,7 +2,6 @@
 Módulo responsável pelos algoritmos de busca.
 """
 
-
 def busca_linear_por_nome(alunos, nome):
     """
     Procura um aluno pelo nome percorrendo a lista do início ao fim
@@ -16,10 +15,12 @@ def busca_linear_por_nome(alunos, nome):
     Retorno:
         dict | None: o aluno encontrado, ou None se não existir.
 
-    TODO: implementar.
     """
-    pass
+    for i in range(len(alunos)):
+        if alunos[i]["nome"].lower() == nome.lower():
+            return alunos[i]
 
+    return None
 
 def busca_binaria_por_matricula(alunos_ordenados_por_matricula, matricula):
     """
@@ -38,7 +39,20 @@ def busca_binaria_por_matricula(alunos_ordenados_por_matricula, matricula):
     Retorno:
         dict | None: o aluno encontrado, ou None se não existir.
 
-    TODO: implementar (lembrar de manter os índices início/fim e calcular o
-    meio a cada iteração, comparando matricula do meio com o valor buscado).
     """
-    pass
+    inicio = 0
+    fim = len(alunos_ordenados_por_matricula) - 1
+
+    while inicio <= fim:
+        meio = (inicio + fim) // 2
+
+        if alunos_ordenados_por_matricula[meio]["matricula"] == matricula:
+            return alunos_ordenados_por_matricula[meio]
+        
+        elif alunos_ordenados_por_matricula[meio]["matricula"] < matricula:
+            inicio = meio + 1
+        
+        else:
+            fim = meio - 1
+
+    return None

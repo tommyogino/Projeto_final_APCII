@@ -44,7 +44,7 @@ def listar_alunos(alunos):
     print(f"\n{'ALUNOS':^35}")
     print("=" * 35)
     for i in alunos:
-        print(f"{i['nome']}")
+        print(f"  {i['matricula']}. {i['nome']}")
         
     print("=" * 35)
 
