@@ -36,6 +36,15 @@ def listar_alunos(alunos):
         None
     
     """
+
+    if not alunos:
+        print("Nenhum aluno cadastrado.")
+        return
+
+    print(f"\n{'ALUNOS':^35}")
+    print("=" * 35)
     for i in alunos:
-        print("Matricula:", i["matricula"],"| Nome:", i["nome"])
+        print(f"{i['nome']}")
+        
+    print("=" * 35)
 

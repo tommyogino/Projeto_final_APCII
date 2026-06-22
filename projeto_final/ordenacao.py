@@ -19,10 +19,23 @@ def ordenar_por_nome(alunos):
         list[dict]: nova lista ordenada por nome. Não deve modificar a
         lista original (faça uma cópia, ex.: alunos.copy(), antes de ordenar).
 
-    TODO: implementar um algoritmo de ordenação manualmente (ex.: bubble sort
-    comparando alunos[i]["nome"]).
     """
-    pass
+    alunos_copia = alunos.copy()
+    n = len(alunos_copia)
+
+    for i in range(n):
+        trocou = False
+
+        for j in range(0, n - i - 1):
+            if alunos_copia[j]["nome"] > alunos_copia[j + 1]["nome"]:
+                alunos_copia[j], alunos_copia[j + 1] = alunos_copia[j + 1], alunos_copia[j]
+                trocou = True
+
+        if not trocou:
+            break
+        
+    return alunos_copia
+
 
 
 def ordenar_por_media(alunos, matriz_notas):
@@ -42,7 +55,27 @@ def ordenar_por_media(alunos, matriz_notas):
     Retorno:
         list[dict]: nova lista de alunos ordenada por média decrescente.
 
-    TODO: implementar (usar notas.calcular_media para cada aluno e depois
-    ordenar manualmente pelo valor da média).
     """
-    pass
+    from notas import calcular_media
+
+    pares = []
+    for i in range(len(alunos)):
+        nome = alunos[i]["nome"]
+        media = calcular_media(matriz_notas, i)
+        pares.append((nome, media))
+    
+    n = len(pares)
+
+    for i in range(n):
+        trocou = False
+        
+        for j in range(0, n - i - 1):
+            if pares[j][1] < pares[j + 1][1]:
+                pares[j], pares[j + 1] =  pares[j + 1], pares[j]
+                trocou = True
+
+        if not trocou:
+            break
+
+    return pares 
+
