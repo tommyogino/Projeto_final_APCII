@@ -30,9 +30,7 @@ def exibir_menu():
 
 def main():
     #Loop principal do programa.
-    # TODO: carregar dados existentes com utils.carregar_dados(ARQUIVO_DADOS)
-    lista_alunos = []
-    matriz_notas = []
+    lista_alunos, matriz_notas = utils.carregar_dados(ARQUIVO_DADOS)
 
     while True:
         utils.limpar_tela()
@@ -54,10 +52,24 @@ def main():
             utils.retornar()
 
         elif opcao == "3":
-            # TODO: perguntar se busca por nome ou matrícula e chamar
-            # busca.busca_linear_por_nome ou busca.busca_binaria_por_matricula
-            # (lembrar de ordenar por matrícula antes da busca binária).
-            pass
+            metodo = input("Deseja buscar o nome ou a matricula do aluno?\n1. Nome\n2. Matricula\n\n")
+            if metodo == "1":
+                nome = input("\nDigite o nome: ")
+                resultado = busca.busca_linear_por_nome(lista_alunos, nome)
+                if resultado:
+                    print(f"\nAluno encontrado! \nNome: {resultado['nome']} | Matrícula: {resultado['matricula']}")
+                else:
+                    print("\nAluno não encontrado.")
+
+            elif metodo == "2":
+                matricula = int(input("\nDigite a matrícula: "))
+                resultado = busca.busca_binaria_por_matricula(lista_alunos, matricula)
+                if resultado:
+                    print(f"\nAluno encontrado! \nNome: {resultado['nome']} | Matrícula: {resultado['matricula']}")
+                else:
+                    print("\nAluno não encontrado.")
+
+            utils.retornar()
 
         elif opcao == "4":
 
@@ -77,14 +89,14 @@ def main():
                 print("Opcao invalida!")
 
             utils.retornar()
-            # TODO: perguntar critério (nome ou média) e chamar
-            # ordenacao.ordenar_por_nome ou ordenacao.ordenar_por_media,
-            # depois exibir o resultado.
-            pass
 
         elif opcao == "5":
-            matricula = input("\nMatricula do aluno: ")
-            utils.validar_matricula(matricula)
+            matricula = int(input("\nMatricula do aluno: "))
+            if not utils.validar_matricula(matricula):
+                print("\nMatrícula inválida!")
+                utils.retornar()
+                continue
+            
             print("\nDisciplinas:")
             for i, disciplina in enumerate(notas.DISCIPLINAS):
                 print(f"{i}. {disciplina}")
@@ -113,7 +125,7 @@ def main():
             pass
 
         elif opcao == "0":
-            # TODO: chamar utils.salvar_dados(ARQUIVO_DADOS, lista_alunos, matriz_notas)
+            utils.salvar_dados(ARQUIVO_DADOS, lista_alunos, matriz_notas)
             print("Dados salvos. Até logo!")
             break
 

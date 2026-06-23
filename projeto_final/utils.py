@@ -33,9 +33,13 @@ def validar_matricula(matricula):
     Retorno:
         bool: True se válida, False caso contrário.
 
-    TODO: implementar.
     """
-
+    try:
+        matricula = int(matricula)
+        return matricula >= 0
+       
+    except (ValueError, TypeError):
+        return False
 
 def validar_nota(valor):
     """
@@ -46,9 +50,9 @@ def validar_nota(valor):
 
     Retorno:
         bool: True se válida, False caso contrário.
-
-    TODO: implementar.
+    
     """
+
     if valor >= 0 and valor <= 10:
         return True
     else:
@@ -67,11 +71,14 @@ def salvar_dados(caminho, alunos, matriz_notas):
     Retorno:
         None
 
-    TODO: implementar. Sugestão de formato do JSON:
-        {"alunos": alunos, "notas": matriz_notas}
-    Use json.dump(dados, arquivo) com o arquivo aberto em modo "w".
     """
-    pass
+    dados = {
+        "alunos": alunos,
+        "notas": matriz_notas
+
+    }
+    with open(caminho, "w", encoding="utf-8") as arquivo:
+        json.dump(dados, arquivo, indent=4, ensure_ascii=False)
 
 
 def carregar_dados(caminho):
@@ -89,4 +96,10 @@ def carregar_dados(caminho):
     TODO: implementar. Lembrar de tratar o caso de arquivo inexistente
     (ex.: with try/except FileNotFoundError ou verificando com os.path.exists).
     """
-    pass
+    if not os.path.exists(caminho):
+        return [], []
+    
+    with open(caminho, "r", encoding="utf-8") as arquivo:
+        dados = json.load(arquivo)
+
+    return dados["alunos"], dados ["notas"]
