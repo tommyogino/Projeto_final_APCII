@@ -39,6 +39,12 @@ def main():
 
         if opcao == "1":
             nome = input("\nNome do aluno: ").strip().title()
+
+            if not nome or not all(c.isalpha() or c.isspace() for c in nome):
+                print("\nNome inválido! Use apenas letras e espaços.")
+                utils.retornar()
+                continue
+
             matricula = len(lista_alunos)
             novo_aluno = aluno.criar_aluno(matricula, nome)
             lista_alunos.append(novo_aluno)
@@ -103,21 +109,26 @@ def main():
                 print("\nMatrícula inválida!")
                 utils.retornar()
                 continue
-            
-            print("\nDisciplinas:")
-            for i, disciplina in enumerate(notas.DISCIPLINAS):
-                print(f"{i}. {disciplina}")
 
-            indice_disciplina = int(input("Escolha a disciplina: "))
-            nota = float(input("Nota: "))
+            nome_aluno = lista_alunos[matricula]["nome"]
+            confirmacao = input(f"\nAluno selecionado: {nome_aluno}\nConfirmar? (s/n): ").strip().lower()
 
-            sucesso = notas.cadastrar_nota(matriz_notas, matricula, indice_disciplina, nota)
-            if sucesso:
-                print("\nNota cadastrada com sucesso!")
+            if confirmacao != "s":
+                print("\nOperação cancelada.")
+                utils.retornar()
+                continue
 
-            else:
-                print("\nNota invalida! Digite um valor entre 0 e 10. ")
+            for j, disciplina in enumerate(notas.DISCIPLINAS):
+                while True:
+                    nota = float(input(f"Nota de {disciplina}: "))
+                    sucesso = notas.cadastrar_nota(matriz_notas, matricula, j, nota)
+                    
+                    if sucesso:
+                        break
+                    
+                    print("Nota inválida! Digite um valor entre 0 e 10.")
 
+            print("\nNotas cadastradas com sucesso!")
             utils.retornar()
             
         elif opcao == "6":
@@ -136,7 +147,7 @@ def main():
             print("=" * 35)
 
             for i in range(len(lista_alunos)):
-                print(f"Aluno: {lista_alunos[i]["nome"]} | Media: {notas.calcular_media(matriz_notas, i)}")
+                print(f"Aluno: {lista_alunos[i]["nome"]} | Media: {notas.calcular_media(matriz_notas, i):.2f}")
             
             print(f"\nMedia geral dos alunos: {notas.calcular_media_geral(matriz_notas):.2f}\n")
             print("=" * 35)
