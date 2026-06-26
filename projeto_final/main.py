@@ -53,33 +53,39 @@ def main():
 
         elif opcao == "3":
             metodo = input("Deseja buscar o nome ou a matricula do aluno?\n1. Nome\n2. Matricula\n\n")
+            
             if metodo == "1":
                 nome = input("\nDigite o nome: ")
                 resultado = busca.busca_linear_por_nome(lista_alunos, nome)
+
                 if resultado:
                     print(f"\nAluno encontrado! \nNome: {resultado['nome']} | Matrícula: {resultado['matricula']}")
+
                 else:
                     print("\nAluno não encontrado.")
 
             elif metodo == "2":
                 matricula = int(input("\nDigite a matrícula: "))
                 resultado = busca.busca_binaria_por_matricula(lista_alunos, matricula)
+
                 if resultado:
                     print(f"\nAluno encontrado! \nNome: {resultado['nome']} | Matrícula: {resultado['matricula']}")
+
                 else:
                     print("\nAluno não encontrado.")
 
             utils.retornar()
 
         elif opcao == "4":
-
             metodo = input("Deseja ordenar por ordem alfabetica ou por media do aluno?\n1. Ordem alfabetica\n2. Media do aluno\n")
+            
             if metodo == "1":
                 aluno.listar_alunos(ordenacao.ordenar_por_nome(lista_alunos))
             
             elif metodo == "2":
                 print(f"\n{'ALUNOS':^35}")
                 print("=" * 35)
+
                 for i in ordenacao.ordenar_por_media(lista_alunos,matriz_notas):
                     print(f"{i[0]} | {i[1]:.2f}")
                     
@@ -92,7 +98,8 @@ def main():
 
         elif opcao == "5":
             matricula = int(input("\nMatricula do aluno: "))
-            if not utils.validar_matricula(matricula):
+
+            if utils.validar_matricula(matricula, lista_alunos) == False:
                 print("\nMatrícula inválida!")
                 utils.retornar()
                 continue
@@ -115,14 +122,27 @@ def main():
             
         elif opcao == "6":
             indice = int(input("Digite a matricula do aluno: "))
-            print(f"Media das notas do aluno: {notas.calcular_media(matriz_notas,indice)}")
+
+            if utils.validar_matricula(indice, lista_alunos) == False:
+                print("Matricula nao encontrada!")
+
+            else:
+                print(f"Media das notas do aluno {lista_alunos[indice]["nome"]}: {notas.calcular_media(matriz_notas,indice)}")
+
             utils.retornar()
 
         elif opcao == "7":
-            # TODO: montar um relatório combinando listagem de alunos,
-            # médias individuais (notas.calcular_media) e média geral
-            # (notas.calcular_media_geral).
-            pass
+            print('\nRelatorio Geral\n')
+            print("=" * 35)
+
+            for i in range(len(lista_alunos)):
+                print(f"Aluno: {lista_alunos[i]["nome"]} | Media: {notas.calcular_media(matriz_notas, i)}")
+            
+            print(f"\nMedia geral dos alunos: {notas.calcular_media_geral(matriz_notas):.2f}\n")
+            print("=" * 35)
+
+            utils.retornar()
+
 
         elif opcao == "0":
             utils.salvar_dados(ARQUIVO_DADOS, lista_alunos, matriz_notas)

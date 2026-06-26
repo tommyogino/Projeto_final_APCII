@@ -23,7 +23,7 @@ def display_ansi_art():
 def retornar():
     input("\nPressione ENTER para continuar...")
 
-def validar_matricula(matricula):
+def validar_matricula(matricula, lista_alunos = None):
     """
     Verifica se a matrícula é válida (ex.: número inteiro positivo).
 
@@ -36,8 +36,14 @@ def validar_matricula(matricula):
     """
     try:
         matricula = int(matricula)
-        return matricula >= 0
-       
+        if matricula < 0:
+            return False
+
+        if lista_alunos is not None:
+            return matricula < len(lista_alunos)
+        
+        return True
+           
     except (ValueError, TypeError):
         return False
 
@@ -55,6 +61,7 @@ def validar_nota(valor):
 
     if valor >= 0 and valor <= 10:
         return True
+    
     else:
         return False
 
